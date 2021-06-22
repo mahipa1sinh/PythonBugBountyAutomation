@@ -3,6 +3,7 @@ import shodan
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
+import chromedriver_binary
 
 API_key_shodan = "okdW2znkGhdiv5jW38Z0svbHuNMoaGpQ" #your shodan api key goes here
 api = shodan.Shodan(API_key_shodan)
@@ -33,7 +34,7 @@ jenkins_list = open('jenkins-instances.txt','r').readlines()
 for jenkins in jenkins_list:
     jenkins = jenkins.rstrip('\n')
     print('Checking- '+jenkins)
-    driver = webdriver.Firefox(options=options)
+    driver = webdriver.Chrome(options=options)
     driver.set_page_load_timeout(20)
     try:
         driver.get(jenkins)
@@ -42,7 +43,7 @@ for jenkins in jenkins_list:
     driver.implicitly_wait(20)
     try:
         element = driver.find_element_by_id('login_field')
-        element.send_Keys(username)
+        element.send_keys(username)
         element = driver.find_element_by_id('password')
         element.send_Keys(password)
         element = driver.find_element_by_name('commit')
