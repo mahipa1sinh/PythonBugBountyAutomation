@@ -1,0 +1,12 @@
+www.alcyon.nl
+mail.alcyon.nl
+www.mail.alcyon.nl
+ns1.alcyon.nl
+panel.alcyon.nl
+www.panel.alcyon.nl
+secure.alcyon.nl
+www.secure.alcyon.nl
+shared.alcyon.nl
+shop.alcyon.nl
+webmail.alcyon.nl
+www.webmail.alcyon.nl
