@@ -34,7 +34,8 @@ jenkins_list = open('jenkins-instances.txt','r').readlines()
 for jenkins in jenkins_list:
     jenkins = jenkins.rstrip('\n')
     print('Checking- '+jenkins)
-    driver = webdriver.Chrome(options=options)
+    #options.binary_location = r'C:/Program Files/Google/Chrome/Application/Chrome'
+    driver = webdriver.Chrome(options=options,executable_path='C:/Program Files/chromedriver.exe')
     driver.set_page_load_timeout(20)
     try:
         driver.get(jenkins)
