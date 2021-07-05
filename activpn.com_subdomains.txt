@@ -1,4 +1,0 @@
-www.activpn.com
-ns.activpn.com
-ssl.activpn.com
-www.ssl.activpn.com
