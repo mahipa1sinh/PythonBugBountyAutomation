@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 import chromedriver_binary
 
-API_key_shodan = "okdW2znkGhdiv5jW38Z0svbHuNMoaGpQ" #your shodan api key goes here
+API_key_shodan = "ENTER_YOUR_SHODAN_API_KEY" #your shodan api key goes here
 api = shodan.Shodan(API_key_shodan)
 out_file = open('jenkins-instances.txt','a')
 query = 'x-jenkins'

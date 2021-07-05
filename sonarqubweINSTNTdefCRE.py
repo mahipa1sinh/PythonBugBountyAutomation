@@ -1,7 +1,7 @@
 import shodan
 import requests as rt 
 import urllib3
-SHODAN_API = "okdW2znkGhdiv5jW38Z0svbHuNMoaGpQ"
+SHODAN_API = "ENTER_YOUR_SHODAN_API_KEY"#ENTER YOUR SHODAN API
 api = shodan.Shodan(SHODAN_API)
 out_file = open('sonarqube-instances.txt','a')
 query = 'http.title:"SonarQube"'

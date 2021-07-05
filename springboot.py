@@ -1,7 +1,7 @@
 import requests
 import shodan
 import wfuzz
-API_key_shodan = "okdW2znkGhdiv5jW38Z0svbHuNMoaGpQ" #your shodan api key goes here
+API_key_shodan = "ENTER_YOUR_SHODAN_API_KEY" #your shodan api key goes here
 api = shodan.Shodan(API_key_shodan)
 out_file = open('spring-boot-server.txt','a')
 query = 'http.favicon.hash:116323821'
