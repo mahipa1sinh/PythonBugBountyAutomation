@@ -1,12 +1,12 @@
 import requests,re
 from urllib.parse import unquote
-import checkdomains
-domains = open("bug-bounty-domains-2.txt","r")
+from fuzzing.checkdomains import isdomainlive
+domains = open("textFiles/bug-bounty-domains-2.txt","r")
 for domain in domains.readlines():
-    subdomains = open(domain.rstrip("\n")+"_subdomains.txt","r")
+    subdomains = open('subdomainEnumeration/'+domain.rstrip("\n")+"_subdomains.txt","r")
     for subdomain in subdomains.readlines():
         buckets = []
-        urls = checkdomains.isdomainlive(subdomain.rstrip("\n"))
+        urls = isdomainlive(subdomain.rstrip("\n"))
         if urls:
             for url in urls:
                 print("checking - "+url)

@@ -7,7 +7,7 @@ import chromedriver_binary
 
 API_key_shodan = "ENTER_YOUR_SHODAN_API_KEY" #your shodan api key goes here
 api = shodan.Shodan(API_key_shodan)
-out_file = open('jenkins-instances.txt','a')
+out_file = open('textFiles/jenkins-instances.txt','a')
 query = 'x-jenkins'
 try:
     results = api.search(query)
@@ -28,14 +28,14 @@ except shodan.APIError as e:
 
 options = Options()
 options.headless = False
-username = "Mahipalsinhnakum"
-password = "mAHI@01022002"
-jenkins_list = open('jenkins-instances.txt','r').readlines()
+username = "Github_Username"#enter your github Username
+password = "Githug_Password"#Enter your Github Password
+jenkins_list = open('textFiles/jenkins-instances.txt','r').readlines()
 for jenkins in jenkins_list:
     jenkins = jenkins.rstrip('\n')
     print('Checking- '+jenkins)
     #options.binary_location = r'C:/Program Files/Google/Chrome/Application/Chrome'
-    driver = webdriver.Chrome(options=options,executable_path='C:/Program Files/chromedriver.exe')
+    driver = webdriver.Chrome(options=options,executable_path='C:/Program Files/chromedriver.exe')#PATH of your browser driver
     driver.set_page_load_timeout(20)
     try:
         driver.get(jenkins)

